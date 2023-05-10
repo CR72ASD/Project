@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ShipeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="c_ID" />
+          </Key>
+          <Property Name="c_ID" Type="int" Nullable="false" />
+          <Property Name="c_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="cust_Name" />
+          </Key>
+          <Property Name="cust_Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="cust_Email" Type="varchar(max)" Nullable="false" />
+          <Property Name="cust_Password" Type="varchar(max)" Nullable="false" />
+          <Property Name="cust_ConfarmPassword" Type="varchar(max)" Nullable="false" />
+          <Property Name="cust_Phone" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="cust_Address" Type="varchar(max)" Nullable="false" />
+          <Property Name="cust_Quistion" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="cust_Answer" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order_Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="O_id" Type="int" Nullable="false" />
+          <Property Name="p_id" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="order_Quntaty" Type="int" />
+          <Property Name="order_Total" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="order_Date" Type="date" />
+          <Property Name="order_Address" Type="nvarchar(max)" />
+          <Property Name="City" Type="nvarchar(max)" />
+          <Property Name="Street" Type="nvarchar(max)" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="p_ID" />
+          </Key>
+          <Property Name="p_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="p_Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="p_Price" Type="int" Nullable="false" />
+          <Property Name="p_Quantity" Type="int" Nullable="false" />
+          <Property Name="c_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Visa">
+          <Key>
+            <PropertyRef Name="v_No" />
+          </Key>
+          <Property Name="v_No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="State" Type="nvarchar" MaxLength="100" />
+          <Property Name="Zip_Code" Type="int" />
+          <Property Name="Exp_Year" Type="int" />
+          <Property Name="Exp_Month" Type="nvarchar" MaxLength="100" />
+          <Property Name="CVV" Type="int" />
+          <Property Name="Card_Number" Type="nvarchar(max)" />
+          <Property Name="Name_On_Card" Type="nvarchar" MaxLength="100" />
+          <Property Name="c_Name" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <Association Name="FK__Product__c_ID__4316F928">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="c_ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="c_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Visa__c_Name__00200768">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Visa" Type="Self.Visa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="cust_Name" />
+            </Principal>
+            <Dependent Role="Visa">
+              <PropertyRef Name="c_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShipeModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order_Details" EntityType="Self.Order_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Visa" EntityType="Self.Visa" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Product__c_ID__4316F928" Association="Self.FK__Product__c_ID__4316F928">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Visa__c_Name__00200768" Association="Self.FK__Visa__c_Name__00200768">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Visa" EntitySet="Visa" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShipeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="c_ID" />
+          </Key>
+          <Property Name="c_ID" Type="Int32" Nullable="false" />
+          <Property Name="c_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Product__c_ID__4316F928" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="cust_Name" />
+          </Key>
+          <Property Name="cust_Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cust_Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cust_Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cust_ConfarmPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cust_Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cust_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cust_Quistion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cust_Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Visa" Relationship="ShipeModel.FK__Visa__c_Name__00200768" FromRole="Customer" ToRole="Visa" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="order_Quntaty" Type="Int32" />
+          <Property Name="order_Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="order_Date" Type="DateTime" Precision="0" />
+          <Property Name="order_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="p_ID" />
+          </Key>
+          <Property Name="p_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="p_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="p_Price" Type="Int32" Nullable="false" />
+          <Property Name="p_Quantity" Type="Int32" Nullable="false" />
+          <Property Name="c_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Product__c_ID__4316F928" FromRole="Product" ToRole="Category" />
+        </EntityType>
+        <Association Name="FK__Product__c_ID__4316F928">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="c_ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="c_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShipeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <AssociationSet Name="FK__Product__c_ID__4316F928" Association="Self.FK__Product__c_ID__4316F928">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <EntitySet Name="Order_Details" EntityType="ShipeModel.Order_Details" />
+          <EntitySet Name="Visa" EntityType="ShipeModel.Visa" />
+          <AssociationSet Name="FK__Visa__c_Name__00200768" Association="ShipeModel.FK__Visa__c_Name__00200768">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Visa" EntitySet="Visa" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Order_Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="O_id" Type="Int32" Nullable="false" />
+          <Property Name="p_id" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Visa">
+          <Key>
+            <PropertyRef Name="v_No" />
+          </Key>
+          <Property Name="v_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Zip_Code" Type="Int32" />
+          <Property Name="Exp_Year" Type="Int32" />
+          <Property Name="Exp_Month" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CVV" Type="Int32" />
+          <Property Name="Card_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name_On_Card" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="c_Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customer" Relationship="ShipeModel.FK__Visa__c_Name__00200768" FromRole="Visa" ToRole="Customer" />
+        </EntityType>
+        <Association Name="FK__Visa__c_Name__00200768">
+          <End Type="ShipeModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="ShipeModel.Visa" Role="Visa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="cust_Name" />
+            </Principal>
+            <Dependent Role="Visa">
+              <PropertyRef Name="c_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShipeModelStoreContainer" CdmEntityContainer="ShipeEntities">
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="ShipeModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="c_ID" ColumnName="c_ID" />
+                <ScalarProperty Name="c_Name" ColumnName="c_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="ShipeModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="cust_Name" ColumnName="cust_Name" />
+                <ScalarProperty Name="cust_Email" ColumnName="cust_Email" />
+                <ScalarProperty Name="cust_Password" ColumnName="cust_Password" />
+                <ScalarProperty Name="cust_ConfarmPassword" ColumnName="cust_ConfarmPassword" />
+                <ScalarProperty Name="cust_Phone" ColumnName="cust_Phone" />
+                <ScalarProperty Name="cust_Address" ColumnName="cust_Address" />
+                <ScalarProperty Name="cust_Quistion" ColumnName="cust_Quistion" />
+                <ScalarProperty Name="cust_Answer" ColumnName="cust_Answer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ShipeModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="order_Quntaty" ColumnName="order_Quntaty" />
+                <ScalarProperty Name="order_Total" ColumnName="order_Total" />
+                <ScalarProperty Name="order_Date" ColumnName="order_Date" />
+                <ScalarProperty Name="order_Address" ColumnName="order_Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="ShipeModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="p_ID" ColumnName="p_ID" />
+                <ScalarProperty Name="p_Name" ColumnName="p_Name" />
+                <ScalarProperty Name="p_Price" ColumnName="p_Price" />
+                <ScalarProperty Name="p_Quantity" ColumnName="p_Quantity" />
+                <ScalarProperty Name="c_ID" ColumnName="c_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Details">
+            <EntityTypeMapping TypeName="ShipeModel.Order_Details">
+              <MappingFragment StoreEntitySet="Order_Details">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="p_id" ColumnName="p_id" />
+                <ScalarProperty Name="O_id" ColumnName="O_id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Visa">
+            <EntityTypeMapping TypeName="ShipeModel.Visa">
+              <MappingFragment StoreEntitySet="Visa">
+                <ScalarProperty Name="c_Name" ColumnName="c_Name" />
+                <ScalarProperty Name="Name_On_Card" ColumnName="Name_On_Card" />
+                <ScalarProperty Name="Card_Number" ColumnName="Card_Number" />
+                <ScalarProperty Name="CVV" ColumnName="CVV" />
+                <ScalarProperty Name="Exp_Month" ColumnName="Exp_Month" />
+                <ScalarProperty Name="Exp_Year" ColumnName="Exp_Year" />
+                <ScalarProperty Name="Zip_Code" ColumnName="Zip_Code" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="v_No" ColumnName="v_No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="389905bac520446183c520b8b53b6500" Name="Diagram1">
+        <EntityTypeShape EntityType="ShipeModel.Category" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShipeModel.Customer" Width="1.5" PointX="5.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShipeModel.Orders" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShipeModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="ShipeModel.FK__Product__c_ID__4316F928" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ShipeModel.Order_Details" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ShipeModel.Visa" Width="1.5" PointX="8" PointY="5.125" />
+        <AssociationConnector Association="ShipeModel.FK__Visa__c_Name__00200768" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
